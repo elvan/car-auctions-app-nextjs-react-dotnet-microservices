@@ -489,3 +489,5 @@ $RECYCLE.BIN/
 
 src/AuctionService/appsettings.Development.json
 src/AuctionService/appsettings.json
+src/SearchService/appsettings.Development.json
+src/SearchService/appsettings.json
