@@ -489,5 +489,8 @@ $RECYCLE.BIN/
 
 src/AuctionService/appsettings.Development.json
 src/AuctionService/appsettings.json
+src/IdentityService/appsettings.json
+src/IdentityService/keys/
+src/IdentityService/wwwroot/lib/
 src/SearchService/appsettings.Development.json
 src/SearchService/appsettings.json
