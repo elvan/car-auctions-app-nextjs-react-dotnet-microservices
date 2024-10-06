@@ -488,6 +488,7 @@ $RECYCLE.BIN/
 .vscode/
 
 appsettings.Development.json
+appsettings.Docker.json
 appsettings.json
 
 src/IdentityService/keys/
