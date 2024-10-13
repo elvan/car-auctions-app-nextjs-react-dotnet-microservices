@@ -6,8 +6,8 @@ import qs from "query-string";
 import { useEffect, useState } from "react";
 import { useShallow } from "zustand/react/shallow";
 import { getData } from "../actions/auctionActions";
-import AppPagination from "../conponents/AppPagination";
-import EmptyFilter from "../conponents/EmptyFilter";
+import AppPagination from "../components/AppPagination";
+import EmptyFilter from "../components/EmptyFilter";
 import AuctionCard from "./AuctionCard";
 import Filters from "./Filters";
 
@@ -20,6 +20,8 @@ export default function Listings() {
       searchTerm: state.searchTerm,
       orderBy: state.orderBy,
       filterBy: state.filterBy,
+      seller: state.seller,
+      winner: state.winner,
     }))
   );
   const setParams = useParamsStore((state) => state.setParams);

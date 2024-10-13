@@ -1,5 +1,5 @@
 import { auth } from "@/auth";
-import Heading from "../conponents/Heading";
+import Heading from "../components/Heading";
 import AuthTest from "./AuthTest";
 
 export default async function Session() {
