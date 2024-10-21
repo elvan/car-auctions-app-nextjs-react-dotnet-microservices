@@ -15,27 +15,27 @@ builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddHttpClient<AuctionSvcHttpClient>().AddPolicyHandler(GetPolicy());
 builder.Services.AddMassTransit(x =>
 {
-    x.AddConsumersFromNamespaceContaining<AuctionCreatedConsumer>();
+  x.AddConsumersFromNamespaceContaining<AuctionCreatedConsumer>();
 
-    x.SetEndpointNameFormatter(new KebabCaseEndpointNameFormatter("search", false));
+  x.SetEndpointNameFormatter(new KebabCaseEndpointNameFormatter("search", false));
 
-    x.UsingRabbitMq((context, cfg) =>
-    {
-        cfg.Host(builder.Configuration["RabbitMq:Host"], "/", h =>
-        {
-            h.Username(builder.Configuration.GetValue("RabbitMQ:Username", "guest")!);
-            h.Password(builder.Configuration.GetValue("RabbitMQ:Password", "guest")!);
-        });
+  x.UsingRabbitMq((context, cfg) =>
+  {
+    cfg.Host(builder.Configuration["RabbitMq:Host"], "/", h =>
+      {
+        h.Username(builder.Configuration.GetValue("RabbitMQ:Username", "guest")!);
+        h.Password(builder.Configuration.GetValue("RabbitMQ:Password", "guest")!);
+      });
 
-        cfg.ReceiveEndpoint("search-auction-created", e =>
-        {
-            e.UseMessageRetry(r => r.Interval(5, 5));
+    cfg.ReceiveEndpoint("search-auction-created", e =>
+      {
+        e.UseMessageRetry(r => r.Interval(5, 5));
 
-            e.ConfigureConsumer<AuctionCreatedConsumer>(context);
-        });
+        e.ConfigureConsumer<AuctionCreatedConsumer>(context);
+      });
 
-        cfg.ConfigureEndpoints(context);
-    });
+    cfg.ConfigureEndpoints(context);
+  });
 });
 
 var app = builder.Build();
@@ -46,14 +46,12 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-try
+app.Lifetime.ApplicationStarted.Register(async () =>
 {
-    await DbInitializer.InitDb(app);
-}
-catch (Exception e)
-{
-    Console.WriteLine(e);
-}
+  await Policy.Handle<TimeoutException>()
+      .WaitAndRetryAsync(5, retryAttempt => TimeSpan.FromSeconds(10))
+      .ExecuteAndCaptureAsync(async () => await DbInitializer.InitDb(app));
+});
 
 app.Run();
 

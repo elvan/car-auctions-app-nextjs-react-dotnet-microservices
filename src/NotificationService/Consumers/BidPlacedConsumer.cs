@@ -1,3 +1,4 @@
+using System;
 using Contracts;
 using MassTransit;
 using Microsoft.AspNetCore.SignalR;

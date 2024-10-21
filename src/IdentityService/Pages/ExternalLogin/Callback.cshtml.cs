@@ -45,7 +45,7 @@ public class Callback : PageModel
         var result = await HttpContext.AuthenticateAsync(IdentityServerConstants.ExternalCookieAuthenticationScheme);
         if (result.Succeeded != true)
         {
-            throw new InvalidOperationException($"External authentication error: { result.Failure }");
+            throw new InvalidOperationException($"External authentication error: {result.Failure}");
         }
 
         var externalUser = result.Principal ??

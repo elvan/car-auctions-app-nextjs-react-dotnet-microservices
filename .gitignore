@@ -490,6 +490,9 @@ $RECYCLE.BIN/
 appsettings.Development.json
 appsettings.Docker.json
 appsettings.json
+infra/prod-k8s/prod-secrets.yml
 
+devcerts/
+infra/devcerts/
 src/IdentityService/keys/
 src/IdentityService/wwwroot/lib/

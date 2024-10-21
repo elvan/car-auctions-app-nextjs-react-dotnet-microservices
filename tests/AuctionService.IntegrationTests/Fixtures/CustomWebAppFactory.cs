@@ -1,5 +1,4 @@
 ﻿using AuctionService.Data;
-using AuctionService.IntegrationTests.Util;
 using MassTransit;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;

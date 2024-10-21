@@ -3,8 +3,8 @@
 import { getBidsForAuction } from "@/app/actions/auctionActions";
 import EmptyFilter from "@/app/components/EmptyFilter";
 import Heading from "@/app/components/Heading";
+import { numberWithCommas } from "@/app/lib/numberWithComma";
 import { useBidStore } from "@/hooks/useBidStore";
-import { numberWithCommas } from "@/lib/numberWithComma";
 import { Auction, Bid } from "@/types";
 import { User } from "next-auth";
 import { useEffect, useState } from "react";
